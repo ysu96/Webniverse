@@ -1,5 +1,5 @@
 
-# 웨비나 게시판 
+# 웨비나 게시판 웹니버스🌕
 ![background4](https://user-images.githubusercontent.com/55823937/139771543-d98711a3-df65-4c97-ae66-ee448eaca110.jpg)
 
 
