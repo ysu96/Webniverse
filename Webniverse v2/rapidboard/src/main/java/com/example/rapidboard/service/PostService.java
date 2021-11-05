@@ -77,7 +77,6 @@ public class PostService {
 
     @Transactional
     public Page<Post> getAllPosts(Pageable pageable) {
-//        return postRepository.getPosts(pageable);
         return postRepository.findAllByIsDeletedOrderByPostIdDesc(0, pageable);
     }
 

@@ -84,7 +84,6 @@ public class PostController {
         if(memberId != principalDetails.getMember().getMemberId()){
             throw new CustomException("You have no authority to write.");
         }
-
         if(boardService.getBoardList().size() == 0){
             throw new CustomException("Create Board first.");
         }
@@ -104,7 +103,6 @@ public class PostController {
 
         model.addAttribute("post", postEntity);
         model.addAttribute("uploadfiles", uploadfiles);
-
         return "post/update";
     }
 

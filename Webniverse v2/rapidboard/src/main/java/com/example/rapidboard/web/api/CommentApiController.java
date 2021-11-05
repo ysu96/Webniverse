@@ -42,7 +42,7 @@ public class CommentApiController {
     }
 
     @PutMapping("/api/comment")
-    public ResponseEntity<?> updateComment(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult) {
+    public ResponseEntity<?> updateComment(@Valid @RequestBody CommentDto commentDto) {
         log.info("[update comment] Comment dto : {}", commentDto.toString());
         commentService.updateComment(commentDto.getCommentId(), commentDto.getContent());
         return ResponseEntity.noContent().build();

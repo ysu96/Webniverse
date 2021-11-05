@@ -33,7 +33,6 @@ public class PageService {
     }
 
     public PagingDto getPageInfo(Page<?> posts){
-
         int pageSize = 5;
         int totalPage = posts.getTotalPages();
         int curPage = posts.getPageable().getPageNumber();
@@ -47,8 +46,7 @@ public class PageService {
         int prevStartIdx = startIdx - pageSize;
         if(prevStartIdx < 0) prevStartIdx = 0;
 
-        PagingDto dto = new PagingDto(startIdx, endIdx, pageSize, curPage, totalPage, nextStartIdx, prevStartIdx);
-        return dto;
+        return new PagingDto(startIdx, endIdx, pageSize, curPage, totalPage, nextStartIdx, prevStartIdx);
     }
 
     @Transactional

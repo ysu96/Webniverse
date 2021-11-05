@@ -10,6 +10,7 @@ import com.example.rapidboard.service.PageService;
 import com.example.rapidboard.service.WebinarService;
 import com.example.rapidboard.web.dto.PagingDto;
 import com.example.rapidboard.web.dto.webinar.ParticipantLog;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.rule.Mode;
@@ -52,7 +53,7 @@ public class WebinarController {
     }
 
     @GetMapping("/webinar/enter/{webinarId}")
-    public String enterWebinar(@PathVariable Long webinarId, @AuthenticationPrincipal PrincipalDetails principalDetails) throws ParseException {
+    public String enterWebinar(@PathVariable Long webinarId, @AuthenticationPrincipal PrincipalDetails principalDetails) throws JsonProcessingException {
         String otp = webinarService.enterWebinar(webinarId, principalDetails.getMember().getMemberId(), principalDetails.getMember().getUsername());
         return "redirect:https://biz-dev.gooroomee.com/room/otp/" + otp;
     }

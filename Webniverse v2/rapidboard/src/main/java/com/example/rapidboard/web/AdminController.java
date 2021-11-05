@@ -7,6 +7,7 @@ import com.example.rapidboard.service.PageService;
 import com.example.rapidboard.service.WebinarService;
 import com.example.rapidboard.web.dto.PagingDto;
 import com.example.rapidboard.web.dto.webinar.ParticipantLog;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -47,9 +48,8 @@ public class AdminController {
     @GetMapping("/webinar/participants/{webinarId}")
     public String participants(@PathVariable Long webinarId, Model model) {
         Webinar webinar = webinarService.findById(webinarId);
-//        List<Member> members = memberService.findAllMember();
-        List<Member> participants = webinarService.findAllParticipants(webinarId);
-        List<Member> members = memberService.findRestMember(participants);
+        List<Member> participants = webinarService.findAllParticipants(webinarId); // 참가자
+        List<Member> members = memberService.findRestMember(participants); // 나머지 멤버
 
         model.addAttribute("room", webinar);
         model.addAttribute("members", members);
@@ -58,18 +58,18 @@ public class AdminController {
     }
 
     @GetMapping("/webinar/log/{webinarId}")
-    public String log(@PathVariable Long webinarId, Model model) throws ParseException {
+    public String log(@PathVariable Long webinarId, Model model) throws ParseException, JsonProcessingException {
         Webinar webinar = webinarService.findById(webinarId);
-        List<ParticipantLog> logs = webinarService.getLogs(webinar.getRoomId());
+        List<ParticipantLog> logs = webinarService.userLog(webinar.getRoomId());
         model.addAttribute("logs", logs);
         model.addAttribute("room", webinar);
         return "/webinar/participantLog";
     }
 
     @GetMapping("/excel/download/{webinarId}")
-    public void excelDownload(@PathVariable Long webinarId, HttpServletResponse response) throws IOException, ParseException {
+    public void excelDownload(@PathVariable Long webinarId, HttpServletResponse response) throws IOException{
         Webinar webinar = webinarService.findById(webinarId);
-        List<ParticipantLog> logs = webinarService.getLogs(webinar.getRoomId());
+        List<ParticipantLog> logs = webinarService.userLog(webinar.getRoomId());
 
         Workbook wb = new XSSFWorkbook();
         Sheet sheet = wb.createSheet(webinar.getRoomTitle());

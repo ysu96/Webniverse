@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class MemberApiController {
     @DeleteMapping("/api/member/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable Long memberId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         log.info("[delete member] member id : {}", memberId);
-        if (principalDetails.getMember().getMemberId() != memberId) {
+        if (!Objects.equals(principalDetails.getMember().getMemberId(), memberId)) {
             throw new CustomException("You have no authority to delete user.");
         }
 

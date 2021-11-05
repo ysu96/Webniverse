@@ -4,6 +4,7 @@ import com.example.rapidboard.domain.webinar.Webinar;
 import com.example.rapidboard.service.WebinarService;
 import com.example.rapidboard.web.dto.webinar.ParticipantDto;
 import com.example.rapidboard.web.dto.webinar.WebinarDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
@@ -54,7 +55,7 @@ public class WebinarApiController {
     }
 
     @DeleteMapping("/api/webinar/delete/{webinarId}")
-    public ResponseEntity<?> delete(@PathVariable Long webinarId) throws org.json.simple.parser.ParseException {
+    public ResponseEntity<?> delete(@PathVariable Long webinarId) throws JsonProcessingException {
         webinarService.delete(webinarId);
         return ResponseEntity.noContent().build();
     }

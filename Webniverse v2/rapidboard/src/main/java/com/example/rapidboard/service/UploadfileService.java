@@ -54,11 +54,9 @@ public class UploadfileService {
 
             String serverFilepath = savePath + "\\" + serverFilename;
             file.transferTo(new File(serverFilepath));
-
             uploadfile.setOriginalFilename(originalFilename);
             uploadfile.setServerFilename(serverFilename);
             uploadfile.setServerFilepath(serverFilepath);
-
             uploadfileRepository.save(uploadfile);
         }
     }
